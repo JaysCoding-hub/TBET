@@ -1,0 +1,41 @@
+mutation CreateUser @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  user_insert(data: {
+    id_expr: "uuidV4()"
+    createdAt_expr: "request.time"
+    displayName: "New User"
+    email: "newuser@example.com"
+  })
+}
+
+query GetHabitsForUser @auth(level: USER) {
+  habits(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    name
+    description
+    targetAbstinenceDays
+    completedAt
+    createdAt
+  }
+}
+
+mutation CreateLogEntry($habitId: UUID!, $isRelapse: Boolean!, $logDate: Date!, $notes: String) @auth(level: USER) {
+  logEntry_insert(data: {
+    habitId: $habitId
+    userId_expr: "auth.uid"
+    createdAt_expr: "request.time"
+    isRelapse: $isRelapse
+    logDate: $logDate
+    notes: $notes
+  })
+}
+
+mutation UpdateHabit($habitId: UUID!, $name: String, $description: String, $targetAbstinenceDays: Int) @auth(level: USER) {
+  habit_update(
+    id: $habitId
+    data: {
+      name: $name
+      description: $description
+      targetAbstinenceDays: $targetAbstinenceDays
+    }
+  )
+}
