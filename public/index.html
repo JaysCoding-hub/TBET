@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphism Login Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .leaderboard-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e0e5ec;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 
+                15px 15px 40px #bec3cf,
+                -15px -15px 40px #ffffff;
+            max-width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-container h3 {
+            color: #3d4468;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 
+                4px 4px 10px #bec3cf,
+                -4px -4px 10px #ffffff;
+        }
+
+        .leaderboard-email {
+            color: #3d4468;
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .leaderboard-points {
+            color: #00c896;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+    </style>
+    
+    
+    <style>
+        body.dark-mode { background: #0f1420; color: #e0e5ec; }
+        body.dark-mode .login-card { background: #161927; box-shadow: 15px 15px 40px #0b0d12, -15px -15px 40px #222635; }
+        body.dark-mode .login-header h2, body.dark-mode .login-header p { color: #e0e5ec; }
+        body.dark-mode label { color: #c7cbd6; }
+        body.dark-mode .neu-button { background: #232635; color: #e0e5ec; }
+        body.dark-mode .divider-line { background: rgba(224,229,236,0.06); }
+    </style>
+
+</head>
+<body class="dark-mode">
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="neu-icon">
+                    <div class="icon-inner">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                </div>
+                <h2>Welcome back</h2>
+                <p>Please sign in to continue</p>
+            </div>
+            
+            <form class="login-form" id="loginForm" novalidate>
+                <div class="form-group">
+                    <div class="input-group neu-input">
+                        <input type="email" id="email" name="email" required autocomplete="email" placeholder=" ">
+                        <label for="email">Email address</label>
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group neu-input password-group">
+                        <input type="password" id="password" name="password" required autocomplete="current-password" placeholder=" ">
+                        <label for="password">Password</label>
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0110 0v4"/>
+                            </svg>
+                        </div>
+                        <button type="button" class="password-toggle neu-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                <line x1="1" y1="1" x2="23" y2="23"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="form-options">
+                    <div class="remember-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember" class="checkbox-label">
+                            <div class="neu-checkbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            Remember me
+                        </label>
+                    </div>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="neu-button login-btn">
+                    <span class="btn-text">Sign In</span>
+                    <div class="btn-loader">
+                        <div class="neu-spinner"></div>
+                    </div>
+                </button>
+            </form>
+
+            <div class="divider">
+                <div class="divider-line"></div>
+                <span>Leaderboard</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn neu-social" id="lBtn" style="font-weight:800;font-size:18px;">L</button>
+            </div>
+
+            <!-- Passwords are shown only to admins on the dashboard -->
+
+            <!-- Inline Leaderboard (hidden by default) -->
+            <div id="inlineLeaderboard" style="display:none;margin-top:16px;">
+                <div style="max-width:420px;margin:0 auto;background:rgba(0,0,0,0.06);padding:12px;border-radius:10px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <strong style="color:#e0e5ec;">🏆 Leaderboard</strong>
+                        <button id="closeLbBtn" style="background:transparent;border:0;color:#e0e5ec;font-weight:700;">Close</button>
+                    </div>
+                    <div id="inlineList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto;"></div>
+                </div>
+            </div>
+
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon neu-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+                <h3>Success!</h3>
+                <p>Redirecting to your dashboard...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="storage-sync.js"></script>
+    <script>
+        // Ensure remote sync is initialized before login script (best-effort)
+        (async function() {
+            try {
+                await initRemoteSync();
+                console.log('Index: initRemoteSync complete');
+            } catch (e) {
+                console.warn('Index: initRemoteSync failed', e);
+            }
+        })();
+    </script>
+    <script src="../../shared/js/form-utils.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Inline leaderboard rendering and toggle
+        function renderInlineLeaderboard() {
+            const list = document.getElementById('inlineList');
+            const usersRaw = (() => { try { return JSON.parse((window.syncGetItem && window.syncGetItem('validUsers')) || localStorage.getItem('validUsers')) || []; } catch(e){ return []; } })();
+            const points = JSON.parse((window.syncGetItem && window.syncGetItem('userPoints')) || localStorage.getItem('userPoints') || '{}');
+            const profileData = (()=>{ try { return JSON.parse((window.syncGetItem && window.syncGetItem('userProfile'))||localStorage.getItem('userProfile')||'{}'); }catch(e){return{}} })();
+            const users = usersRaw.map(u => ({ email: u.email, points: points[u.email] || 0, pic: (profileData[u.email] && profileData[u.email].pic) || null }));
+            if (!users.length) {
+                list.innerHTML = '<div style="text-align:center;color:#c7cbd6">No users yet</div>';
+                return;
+            }
+            users.sort((a,b) => b.points - a.points);
+            list.innerHTML = users.map((u, idx) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:rgba(224,229,236,0.03)">
+                    <div style="display:flex;align-items:center;gap:8px;overflow:hidden;">
+                        ${u.pic?`<img src="${u.pic}" style="width:30px;height:30px;border-radius:50%;object-fit:cover;">`:`<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#f0f0f0,#dcdcdc);"></div>`}
+                        <div style="font-weight:800;color:#e0e5ec;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${idx+1}. ${u.email.split('@')[0]}</div>
+                    </div>
+                    <div style="color:#00c896;font-weight:800;min-width:60px;text-align:center">• ${u.points}</div>
+                </div>
+            `).join('');
+        }
+
+        const lBtn = document.getElementById('lBtn');
+        const inlineLb = document.getElementById('inlineLeaderboard');
+        const closeLbBtn = document.getElementById('closeLbBtn');
+
+        if (lBtn) {
+            lBtn.addEventListener('click', () => {
+                if (inlineLb.style.display === 'none' || inlineLb.style.display === '') {
+                    renderInlineLeaderboard();
+                    inlineLb.style.display = 'block';
+                    lBtn.textContent = 'L ▴';
+                } else {
+                    inlineLb.style.display = 'none';
+                    lBtn.textContent = 'L';
+                }
+            });
+        }
+        if (closeLbBtn) {
+            closeLbBtn.addEventListener('click', () => {
+                inlineLb.style.display = 'none';
+                if (lBtn) lBtn.textContent = 'L';
+            });
+        }
+        // Re-render inline leaderboard when points or users change
+        if (window.onStorageChange) {
+            window.onStorageChange('userPoints', () => {
+                try { renderInlineLeaderboard(); } catch (e) { console.warn(e); }
+            });
+            window.onStorageChange('validUsers', () => {
+                try { renderInlineLeaderboard(); } catch (e) { console.warn(e); }
+            });
+            window.onStorageChange && window.onStorageChange('userProfile', () => { try { renderInlineLeaderboard(); } catch(e) { console.warn(e); } });
+        }
+        // Add swipe to view profile (right swipe) and 2-week leaderboard (left swipe)
+        (function attachInlineSwipe() {
+            const container = document.getElementById('inlineList');
+            if (!container) return;
+            let sx=0, sy=0;
+            container.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; sx=t.clientX; sy=t.clientY; }, {passive:true});
+            container.addEventListener('touchend', (e)=>{
+                const t=(e.changedTouches&&e.changedTouches[0]); if(!t) return; const dx=t.clientX-sx, dy=t.clientY-sy;
+                if (Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) {
+                    if (dx>0) {
+                        // profile of current user
+                        const userEmail = localStorage.getItem('userEmail');
+                        if (!userEmail) return; // not logged in
+                        // render a compact inline profile
+                        const pics = (()=>{ try { return JSON.parse((window.syncGetItem && window.syncGetItem('profilePictures'))||localStorage.getItem('profilePictures')||'{}'); }catch(e){return{}} })();
+                        const stats = (()=>{ try { return JSON.parse((window.syncGetItem && window.syncGetItem('userStats'))||localStorage.getItem('userStats')||'{}'); }catch(e){return{}} })();
+                        const pts = JSON.parse((window.syncGetItem && window.syncGetItem('userPoints')) || localStorage.getItem('userPoints') || '{}');
+                        const s = stats[userEmail]||{wins:0,pointsHistory:[],highscore:0};
+                        container.innerHTML = `
+                            <div style="padding:8px;background:rgba(0,0,0,0.04);border-radius:8px;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;">
+                                    <div style="font-weight:800">${userEmail.split('@')[0]}</div>
+                                    <button id="backInline" style="background:transparent;border:0;color:#e0e5ec">Back</button>
+                                </div>
+                                <div style="margin-top:8px;color:#c7cbd6">Highscore: ${s.highscore||0} • Wins: ${s.wins||0} • Points: ${pts[userEmail]||0}</div>
+                            </div>
+                        `;
+                        const back = document.getElementById('backInline'); if (back) back.addEventListener('click', ()=>{ renderInlineLeaderboard(); });
+                    } else {
+                        // left swipe -> show last 2 weeks leaderboard
+                        // render inline list for 2 weeks
+                        const stats = (()=>{ try { return JSON.parse((window.syncGetItem && window.syncGetItem('userStats'))||localStorage.getItem('userStats')||'{}'); }catch(e){return{}} })();
+                        const usersRaw = (() => { try { return JSON.parse((window.syncGetItem && window.syncGetItem('validUsers')) || localStorage.getItem('validUsers')) || []; } catch(e){ return []; } })();
+                        const now = Date.now(); const TWO_WEEKS_MS = 14*24*60*60*1000;
+                        const rows = usersRaw.map(u=>({email:u.email, pts: ((stats[u.email]&&stats[u.email].pointsHistory)||[]).reduce((s,e)=>(e.ts>=now-TWO_WEEKS_MS? s + (e.points||0):s),0)}));
+                        rows.sort((a,b)=>b.pts-a.pts);
+                        container.innerHTML = rows.map((r,idx)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:rgba(224,229,236,0.03)"><div style="font-weight:800;color:#e0e5ec">${idx+1}. ${r.email.split('@')[0]}</div><div style="color:#00c896;font-weight:800">${r.pts}</div></div>`).join('');
+                    }
+                }
+            }, {passive:true});
+        })();
+        // Password display removed from login page; admins can view passwords in dashboard only.
+    </script>
+</body>
+</html>

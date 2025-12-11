@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Connection Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #f0f0f0; }
+        .status { background: #fff; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { border-left: 4px solid green; }
+        .error { border-left: 4px solid red; }
+        .info { border-left: 4px solid blue; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Firebase Connection Test</h1>
+    <div id="logs"></div>
+    <button onclick="testWrite()">Test Write to Firebase</button>
+    <button onclick="testRead()">Test Read from Firebase</button>
+    <button onclick="testListener()">Test Real-time Listener</button>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script>
+        let db = null;
+
+        function log(msg, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
+            document.getElementById('logs').appendChild(div);
+            console.log(`[${type}]`, msg);
+        }
+
+        async function initFirebase() {
+            try {
+                if (!window.FIREBASE_CONFIG) {
+                    log('ERROR: FIREBASE_CONFIG not set', 'error');
+                    return false;
+                }
+                log('FIREBASE_CONFIG loaded', 'info');
+                
+                try {
+                    const app = firebase.initializeApp(window.FIREBASE_CONFIG);
+                    db = firebase.database();
+                    log('✓ Firebase initialized successfully', 'success');
+                    return true;
+                } catch (e) {
+                    if (e.code === 'app/duplicate-app') {
+                        db = firebase.database();
+                        log('✓ Firebase app already initialized', 'success');
+                        return true;
+                    }
+                    throw e;
+                }
+            } catch (e) {
+                log('ERROR: ' + e.message, 'error');
+                return false;
+            }
+        }
+
+        async function testWrite() {
+            log('Starting write test...', 'info');
+            if (!db) {
+                const ok = await initFirebase();
+                if (!ok) return;
+            }
+
+            try {
+                const testValue = 'test_' + Date.now();
+                log(`Writing: testKey = ${testValue}`, 'info');
+                await db.ref('/app/testKey').set(testValue);
+                log(`✓ Write successful!`, 'success');
+            } catch (e) {
+                log(`✗ Write failed: ${e.message}`, 'error');
+            }
+        }
+
+        async function testRead() {
+            log('Starting read test...', 'info');
+            if (!db) {
+                const ok = await initFirebase();
+                if (!ok) return;
+            }
+
+            try {
+                log('Reading: /app/betsOpen', 'info');
+                const snap = await db.ref('/app/betsOpen').once('value');
+                const val = snap.val();
+                log(`✓ Read successful! Value: ${val}`, 'success');
+            } catch (e) {
+                log(`✗ Read failed: ${e.message}`, 'error');
+            }
+        }
+
+        async function testListener() {
+            log('Setting up listener on /app/betsOpen...', 'info');
+            if (!db) {
+                const ok = await initFirebase();
+                if (!ok) return;
+            }
+
+            try {
+                db.ref('/app/betsOpen').on('value', (snap) => {
+                    const val = snap.val();
+                    log(`🔄 Listener fired! betsOpen = ${val}`, 'success');
+                });
+                log('✓ Listener registered', 'success');
+            } catch (e) {
+                log(`✗ Listener failed: ${e.message}`, 'error');
+            }
+        }
+
+        // Auto-init on load
+        window.onload = () => {
+            initFirebase();
+        };
+    </script>
+</body>
+</html>
